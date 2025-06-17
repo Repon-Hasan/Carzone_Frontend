@@ -2,8 +2,7 @@ import React, { use, useContext, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router'
 import { vlalueContext } from '../Layout/Homelayout';
 import { toast } from 'react-toastify';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth } from '../firebase';
+
 
 
 function Signup() {

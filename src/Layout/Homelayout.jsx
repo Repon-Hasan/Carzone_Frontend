@@ -1,9 +1,10 @@
 import React, { createContext, use, useEffect, useState } from 'react'
 import Header from '../component/Header/Navbar'
 import Navbar from '../component/Header/Navbar'
+import axios from 'axios';
 import { auth } from '../firebase'
 import { Helmet } from 'react-helmet-async';
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
+import { createUserWithEmailAndPassword, linkWithCredential, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { Outlet, useNavigate } from 'react-router'
 import Footer from '../component/Footer/Footer';
@@ -74,6 +75,8 @@ const handlePassword=(email)=>{
     //console.log(errorMessage)
   });
 }
+
+
     const contextValue={
         createUser,a,
         signIngoogle,
@@ -89,10 +92,19 @@ const handlePassword=(email)=>{
     }
       
 useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  const unsubscribe = onAuthStateChanged(auth, currentUser => {
     setUser(currentUser); 
   setLoading(false)
-   
+  if(currentUser?.email){
+  axios.post('https://car-rental-azure-zeta.vercel.app/jwt', { email: currentUser.email }, { withCredentials: true })
+  .then(res => console.log('JWT Response:', res.data))
+  .catch(error => console.error('JWT Error:', error));
+  }
+    else {
+      axios.post('https://car-rental-azure-zeta.vercel.app/logout', {}, { withCredentials: true })
+        .then(res => console.log('JWT cleared:', res.data))
+        .catch(err => console.error('Logout Error:', err));
+    }
   });
 
   return () => unsubscribe(); 
@@ -113,7 +125,7 @@ useEffect(() => {
       
 <Navbar></Navbar>
         <Outlet></Outlet>
-    
+      <Footer></Footer>  
 </vlalueContext.Provider>
     </div>
   )

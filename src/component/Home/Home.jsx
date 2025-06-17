@@ -1,105 +1,156 @@
 import React, { useEffect, useState } from 'react'
-import { Moon, Sun } from "lucide-react";
-import s1 from '../../assets/F1.jpeg'
-import s2 from '../../assets/F2.jpeg'
-import s3 from '../../assets/F3.jpeg'
-import s4 from '../../assets/F4.png'
+import banner from '../../assets/banner.jpg'
 import './Home.css'
+import { Link, useLoaderData } from 'react-router'
+import { motion } from 'framer-motion';
+
+function getRelativeDate(dateString) {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diff = Math.round((now - date) / (1000 * 60 * 60 * 24));
+  return diff === 0 ? 'today' : `${diff} day(s) ago`;
+}
+const steps = [
+  {
+    icon: '🔍',
+    title: 'Browse Cars',
+    desc: 'Explore a wide range of vehicles suited for every journey.',
+  },
+  {
+    icon: '📝',
+    title: 'Book Online',
+    desc: 'Select your car, dates, and book instantly with easy steps.',
+  },
+  {
+    icon: '🚗',
+    title: 'Drive & Enjoy',
+    desc: 'Pick up your car and hit the road—simple and stress-free!',
+  },
+];
+
 function Home() {
+  const cars = useLoaderData();
 
-  const [isDark, setIsDark] = useState(false);
-  const toggleTheme = (e) => {
-    setIsDark(e.target.checked);
-  };
-  
   return (
-    <div className={`md:mx-20 mx-3 ${isDark ? 'dark-theme' : 'light-theme'}`}>
+    <>
+      <section className="relative h-[80vh] bg-cover bg-center" style={{ backgroundImage: 'url(/banner.jpg)' }}>
+        <div className="absolute inset-0 bg-black opacity-75   bg-opacity-0 flex flex-col items-center justify-center text-white text-center">
+          <h1 className="text-5xl font-bold mb-6 text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); text-red-600">Drive Your Dreams Today!</h1>
+          <a href="/available" className="bg-yellow-500 hover:bg-yellow-600 text-lg font-semibold px-6 py-3 rounded shadow-lg transition">
+            View Available Cars
+          </a>
+        </div>
+      </section>
 
+      <section className="py-16 bg-gray-100 text-center">
+        <h2 className="text-4xl font-bold mb-12">Why Choose Us?</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          {[
+            { icon: '🚗', title: 'Wide Variety of Cars', desc: 'From budget to luxury.' },
+            { icon: '💰', title: 'Affordable Prices', desc: 'Competitive daily rates.' },
+            { icon: '⚡', title: 'Easy Booking', desc: 'Book in just a few clicks.' },
+            { icon: '📞', title: '24/7 Support', desc: 'We’re here when you need us.' },
+          ].map((item, idx) => (
+            <div key={idx} className="p-6 bg-white rounded-lg shadow hover:shadow-md transition">
+              <div className="text-5xl mb-4">{item.icon}</div>
+              <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+              <p className="text-gray-600">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
+<section className="py-16 px-4 max-w-7xl mx-auto">
+  <h2 className="text-4xl font-bold text-center mb-10">Recent Listings</h2>
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    {cars
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      .slice(0, 6) 
+      .map((car) => {
+        const daysAgo = Math.floor((new Date() - new Date(car.createdAt)) / (1000 * 60 * 60 * 24));
+        const postedDate = daysAgo === 0 ? "Today" : `Added ${daysAgo} day${daysAgo > 1 ? "s" : ""} ago`;
 
-
-<div className="carousel w-full rounded-xl md:h-[68vh]">
-  <div id="slide1" className="carousel-item relative w-full">
-    <img
-      src={s1}
-      className="w-full" />
-
-
-        <div className="absolute inset-0 md:ml-36 bg-black/40 flex flex-col justify-center items-start p-6 text-white space-y-4">
-    <h2 className="text-xl md:text-4xl font-bold">Thrive in the world of Freelance Excellence MarketPlace!</h2>
-    <p className="text-sm md:text-base max-w-md">
-    Top Global Experts lead online professional course,delivering quality education accessibility to learners world wide 
-    </p>
+        return (
+          <div
+            key={car._id}
+            className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition transform hover:scale-[1.02] duration-300"
+          >
+            <div className="overflow-hidden h-40">
+              <img
+                src={car.imageUrl}
+                alt={car.carModel}
+                className="w-full h-full object-cover transform hover:scale-105 transition duration-300"
+              />
+            </div>
+            <div className="p-4">
+              <h3 className="text-xl font-semibold mb-1">{car.carModel}</h3>
+              <p className="text-gray-700 mb-1">${car.dailyRentalPrice} / day</p>
+              <p className="text-sm text-gray-600 mb-1">Bookings: {car.bookingCount || 0}</p>
+              <p className="text-sm text-gray-500 mb-2">{postedDate}</p>
+              <span
+                className={`inline-block px-3 py-1 text-sm font-medium rounded-full ${
+                  car.bookingStatus
+=== 'Available' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                }`}
+              >
+                {car.bookingStatus
+ || 'Unavailable'}
+              </span>
+              {/* Uncomment if you want booking button */}
+              {/* <Link to={`/car/${car._id}`}>
+                <button className="mt-4 w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                  Book Now
+                </button>
+              </Link> */}
+            </div>
+          </div>
+        );
+      })}
   </div>
+</section>
 
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide4" className="btn btn-circle">❮</a>
-      <a href="#slide2" className="btn btn-circle">❯</a>
-    </div>
+
+
+      
+  <section className="py-20 bg-gray-50">
+  <h2 className="text-4xl font-bold text-center mb-12">How It Works</h2>
+  <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center px-4">
+    {steps.map((step, idx) => (
+      <motion.div
+        key={idx}
+        className="bg-white p-8 rounded-xl shadow-lg"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: idx * 0.2 }}
+        viewport={{ once: true }}
+      >
+        <div className="text-5xl mb-4">{step.icon}</div>
+        <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+        <p className="text-gray-600">{step.desc}</p>
+      </motion.div>
+    ))}
   </div>
+</section>
 
-  <div id="slide2" className="carousel-item relative w-full">
-    <img
-      src={s2}
-      className="w-full" />
 
-        <div className="absolute inset-0 md:ml-36 bg-black/40 flex flex-col justify-center items-start p-6 text-white space-y-4">
-        <h4 className='font-bold text-black text-xl'>Boots Your Working Flow</h4>
-    <h2 className="text-xl md:text-4xl font-bold">Exploring The Collection of Project</h2>
-    <p className="text-sm md:text-3xl  text-black font-bold max-w-md">
- Complete your Project and Earn Money
-    </p>
-  </div>
-
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide1" className="btn btn-circle">❮</a>
-      <a href="#slide3" className="btn btn-circle">❯</a>
-    </div>
-
-  </div>
-
-  <div id="slide3" className="carousel-item relative w-full">
-    <img
-      src={s3}
-      className="w-full" />
-
-             <div className="absolute inset-0 md:ml-36 bg-black/40 flex flex-col justify-center items-start p-6 text-white space-y-4">
-       
-    <h2 className="text-xl md:text-4xl font-bold">Hire the best freelancers for any job, online.</h2>
-    <p className="text-sm md:text-lg  text-black font-bold max-w-md">
-Millions of people use of our website to turn their ideas into reality.
-    </p>
-    <input type="text" placeholder='Search the task' className=' border-2 p-2 rounded-xl' />
-  </div>
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide2" className="btn btn-circle">❮</a>
-      <a href="#slide4" className="btn btn-circle">❯</a>
-    </div>
-  </div>
-
-  <div id="slide4" className="carousel-item relative w-full">
-    <img
-      src={s4}
-      className="w-full" />
-
-               <div className="absolute inset-0 md:ml-36 bg-black/40 flex flex-col justify-center items-start p-6 text-white space-y-4">
-       
-    <h2 className="text-xl md:text-4xl font-bold">Hire Experts & Get Your Any Job Done</h2>
-    <p className="text-sm md:text-lg  text-black font-bold max-w-md">
-Work with talented people at the most affordable price to get the most out of your time and cost
-    </p>
-    <input type="text" placeholder='Search the task' className=' border-2 p-2 rounded-xl' />
-  </div>
-    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-      <a href="#slide3" className="btn btn-circle">❮</a>
-      <a href="#slide1" className="btn btn-circle">❯</a>
-    </div>
-  </div>
-</div>
-
-   
-    </div>
-  )
+      <section className="py-16 bg-gradient-to-r from-yellow-100 via-white to-yellow-100">
+        <h2 className="text-4xl font-bold text-center mb-12">Special Offers</h2>
+        <div className="flex flex-wrap justify-center gap-8">
+          {[
+            { text: 'Get 15% off for weekend rentals!', btn: 'Book Now' },
+            { text: 'Luxury cars at $99/day this holiday season!', btn: 'Learn More' },
+          ].map((offer, idx) => (
+            <div key={idx} className="w-[300px] bg-white p-6 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl animate-fade-in">
+              <p className="text-lg font-semibold text-center mb-4">{offer.text}</p>
+              <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded">
+                {offer.btn}
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  );
 }
 
-export default Home
+export default Home;

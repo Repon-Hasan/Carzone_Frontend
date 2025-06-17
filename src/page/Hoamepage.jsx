@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import Home from '../component/Home/Home'
-import Hero from '../Layout/Hero/Hero'
+
 import { Moon, Sun } from "lucide-react";
 import { useLoaderData } from 'react-router';
-import Services from '../component/services/Services';
+
 import './HomePage.css'
 import Navbar from '../component/Header/Navbar';
 import Footer from '../component/Footer/Footer';
 
 export default function Hoamepage() {
   const data= useLoaderData();
+  console.log("Homepage data is ",data)
     const [isDark, setIsDark] = useState(false);
   const toggleTheme = (e) => {
     setIsDark(e.target.checked);
@@ -30,9 +31,9 @@ export default function Hoamepage() {
         </label>
       </div>
     
-      <Home></Home>
-      <Hero></Hero>
-      <Services data={data}></Services>
+      <Home data={data}></Home>
+  
+      
       <Footer isDark={isDark}></Footer>
     </div>
   )

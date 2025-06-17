@@ -2,3 +2,20 @@ a.active {
     color: blue;
     text-decoration: underline;
   }
+.nav-link {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: 0.2s;
+  color: #374151;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  background-color: #e5e7eb;
+}
+
+.nav-link.active {
+  background-color: #2563eb;
+  color: white;
+}
+

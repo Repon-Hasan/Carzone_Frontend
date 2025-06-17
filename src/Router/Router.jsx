@@ -7,27 +7,30 @@ import Homelayout from "../Layout/Homelayout";
 import Signup from "../page/Signup";
 import App from "../App";
 import Signin from "../page/Signin";
-import Home from "../component/Home/Home";
-import Hoamepage from "../page/Hoamepage";
 
+import Hoamepage from "../page/Hoamepage";
 import Privaterout from "../component/Privaterout/Privaterout";
 
 import Error from "../Error/Error";
 import ForgetPassword from "../component/ForgetPassword/ForgetPassword";
-import Addtask from "../component/Task/Addtask";
-import BrowerTask from "../component/Task/BrowerTask";
-import PostTask from "../component/Task/PostTask";
-import TaskDetails from "../component/Task/TaskDetails";
-import Update from "../page/Update";
+import AddCars from "../page/AddCars";
+import MyCars from "../page/MyCars";
+import UpdateCar from "../page/UpdateCar";
+import AvailableCars from "../page/AvailableCars";
+import CarDetails from "../page/CarDetails";
+import MyBooking from "../page/MyBooking";
+import Home from "../component/Home/Home";
+
 
 export const router=createBrowserRouter([
   {
     path: "/",
+    //loader:()=>fetch('https://car-rental-azure-zeta.vercel.app//cars'),
     element: <Homelayout></Homelayout>, 
     children:[
       { index: true, 
-        element:<Hoamepage></Hoamepage>,
-        loader:()=>fetch('https://backend-nu-livid-37.vercel.app/task/home')
+        element:<Home></Home>,
+        loader:()=>fetch('https://car-rental-azure-zeta.vercel.app/allCars')
        },
       
 
@@ -39,46 +42,49 @@ export const router=createBrowserRouter([
   path:"/signin",
   element:<Signin></Signin>
 },
-
 {
-  path:"/addTask",
-  element: <Privaterout>
-    <Addtask></Addtask>
-  </Privaterout>
+  path:"/a",
+  element: <div>hello</div>
 },
 {
-  path:"/browserTask",
-  element: <Privaterout>
-    <BrowerTask></BrowerTask>
-  </Privaterout>,
-   loader:()=>fetch('https://backend-nu-livid-37.vercel.app/task')
+  path:"/addCars",
+  element: <Privaterout><AddCars></AddCars></Privaterout>
 },
 
 {
-  path:"/task/:id",
-  
-     loader:({params})=>fetch(`https://backend-nu-livid-37.vercel.app/task/${params.id}`),
-  element: <Privaterout>
-    <TaskDetails></TaskDetails>
-  </Privaterout>,
-
+  path:"/available",
+  loader:()=>fetch(`https://car-rental-azure-zeta.vercel.app/cars`),
+  element: <AvailableCars></AvailableCars>
 },
+
+{
+  path:"/cars/:email",
+  element: <Privaterout><MyCars></MyCars></Privaterout>
+},
+
 {
   path:"/update/:id",
-     loader:({params})=>fetch(`https://backend-nu-livid-37.vercel.app/task/${params.id}`),
+     loader:({params})=>fetch(`https://car-rental-azure-zeta.vercel.app/update/${params.id}`,{credentials: 'include'}),
   element: <Privaterout>
-    <Update></Update>
+    <UpdateCar></UpdateCar>
   </Privaterout>,
-
 },
-
 {
-  path:"/postTask",
-    loader:()=>fetch('https://backend-nu-livid-37.vercel.app/task'),
-  element: <Privaterout>
-  <PostTask></PostTask>
-  </Privaterout>
+  path: '/car/:id',
+  element: <CarDetails></CarDetails>,
+  loader: async ({ params }) => fetch(`https://car-rental-azure-zeta.vercel.app/car/${params.id}`,{credentials: 'include'}).then(res => res.json()),
 },
+{
+  path:"/bookings",
+  element:<Privaterout><MyBooking></MyBooking></Privaterout>
+}
+
+
+
+
+
+
+
 
  ]
 }, 
