@@ -134,6 +134,12 @@ function AvailableCars() {
 bookingCount}
 
       </p>
+                  <p className="mb-2">
+        <strong>Location:</strong> {car.
+
+location}
+
+      </p>
               <Link to={`/car/${car._id}`}>
                 <button className="mt-2 bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition">
                   Book Now

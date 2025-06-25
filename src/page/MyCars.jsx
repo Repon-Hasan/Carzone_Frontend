@@ -3,7 +3,6 @@ import Swal from 'sweetalert2';
 import { vlalueContext } from '../Layout/Homelayout';
 import { Link } from 'react-router';
 
-
 function MyCars() {
   const { user, loading } = useContext(vlalueContext);
   const [cars, setCars] = useState([]);
@@ -57,13 +56,11 @@ function MyCars() {
     });
   };
 
-  const filteredCars = Array.isArray(cars)
-    ? cars.filter(car =>
-        car.carModel?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        car.brand?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        car.location?.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : [];
+  const filteredCars = cars.filter(car =>
+    car.carModel?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    car.brand?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    car.location?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const sortedCars = [...filteredCars].sort((a, b) => {
     if (sortOption === 'priceLowHigh') return a.dailyRentalPrice - b.dailyRentalPrice;
@@ -109,6 +106,7 @@ function MyCars() {
               <th className="p-3 border">Price</th>
               <th className="p-3 border">Bookings</th>
               <th className="p-3 border">Availability</th>
+              <th className="p-3 border">Location</th>
               <th className="p-3 border">Date Added</th>
               <th className="p-3 border">Actions</th>
             </tr>
@@ -131,6 +129,7 @@ function MyCars() {
                     {car.bookingStatus}
                   </span>
                 </td>
+                <td className="p-2 border">{car.location}</td>
                 <td className="p-2 border">{new Date(car.createdAt).toLocaleDateString()}</td>
                 <td className="p-2 border space-x-2">
                   <Link
