@@ -27,6 +27,23 @@ const steps = [
     desc: 'Pick up your car and hit the road—simple and stress-free!',
   },
 ];
+const blogs = [
+  {
+    title: "Tips for Renting Cars",
+    description:
+      "Learn how to rent cars safely and affordably with these expert tips.",
+  },
+  {
+    title: "Best Cars for Long Trips",
+    description:
+      "Planning a road trip? Check out our top picks for long-distance travel.",
+  },
+  {
+    title: "Driving in Different Cities",
+    description:
+      "What to expect when renting and driving cars in unfamiliar cities.",
+  },
+];
 
 function Home() {
   const cars = useLoaderData();
@@ -109,7 +126,40 @@ function Home() {
   </div>
 </section>
 
+   <section className="py-16 px-4 bg-gray-50">
+      <div className="max-w-6xl mx-auto text-center">
+        <h2 className="text-3xl font-bold mb-6 text-blue-700">
+          Car Rental Tips
+        </h2>
+        <p className="text-gray-600 max-w-xl mx-auto mb-12">
+          Discover useful advice, expert insights, and guides to make your car
+          rental experience better.
+        </p>
 
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {blogs.map((blog, index) => (
+            <motion.div
+              key={index}
+              className="bg-white shadow-md rounded-xl p-6 text-left border border-blue-100 hover:shadow-xl transition-transform hover:scale-[1.02]"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+            >
+              <h3 className="text-xl font-semibold mb-2 text-blue-800">
+                {blog.title}
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                {blog.description}
+              </p>
+              <button className="mt-4 text-sm text-blue-600 hover:underline">
+                Read More →
+              </button>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
 
       
   <section className="py-20 bg-gray-50">

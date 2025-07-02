@@ -20,6 +20,9 @@ import AvailableCars from "../page/AvailableCars";
 import CarDetails from "../page/CarDetails";
 import MyBooking from "../page/MyBooking";
 import Home from "../component/Home/Home";
+import Contact from "../page/Contact";
+import About from "../page/About";
+import FAQ from "../page/FAQ";
 
 
 export const router=createBrowserRouter([
@@ -41,6 +44,18 @@ export const router=createBrowserRouter([
 {
   path:"/signin",
   element:<Signin></Signin>
+},
+{
+  path:"/contact",
+  element:<Contact></Contact>
+},
+{
+  path:"/about",
+  element:<About></About>
+},
+{
+  path:"/faq",
+  element:<FAQ></FAQ>
 },
 {
   path:"/a",

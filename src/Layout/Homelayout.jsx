@@ -119,7 +119,7 @@ useEffect(() => {
 <vlalueContext.Provider value={contextValue}>  
 
 <Helmet>
-        <title>Home | My App</title>
+        <title>Home | CarZone</title>
         <meta name="description" content="Welcome to the homepage of My App" />
       </Helmet>
       
