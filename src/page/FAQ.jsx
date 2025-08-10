@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { FaQuestionCircle, FaCarSide, FaCalendarAlt, FaDollarSign, FaIdCard, FaRoad } from 'react-icons/fa';
 
 export const faqData = [
@@ -49,6 +50,10 @@ export const faqData = [
 const FAQ = () => {
   return (
     <section className="max-w-4xl mx-auto p-6">
+           <Helmet>
+                    <title>FAQ | CarZone</title>
+                    <meta name="description" content="Welcome to the homepage of My App" />
+                  </Helmet>
       <h2 className="text-4xl font-bold text-center text-blue-600 mb-10">Frequently Asked Questions</h2>
       <div className="space-y-6">
         {faqData.map(({ id, icon, question, answer }) => (

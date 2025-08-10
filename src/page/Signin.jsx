@@ -63,6 +63,10 @@ const provider = new GoogleAuthProvider();
   return (
 	
     <div className="w-full max-w-md md:mt-16 mt-4 mx-auto p-4 rounded-md shadow sm:p-8 dark:bg-gray-50 dark:text-gray-800">
+			 <Helmet>
+					  <title>Signin | CarZone</title>
+					  <meta name="description" content="Welcome to the homepage of My App" />
+					</Helmet>
 	<h2 className="mb-3 text-3xl font-semibold text-center">Login to your account</h2>
 	<p className="text-sm text-center dark:text-gray-600">Dont have account?
 		<Link to="/signup" rel="noopener noreferrer" className="focus:underline hover:underline text-green-600">Sign up here</Link>

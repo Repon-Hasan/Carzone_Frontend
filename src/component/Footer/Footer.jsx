@@ -1,12 +1,14 @@
 import React from 'react';
-import { NavLink } from 'react-router'; 
+import { NavLink } from 'react-router';
 
 function Footer() {
   return (
     <div className="mt-6 rounded-t-xl shadow-inner bg-white">
       <footer className="max-w-7xl mx-auto px-4 py-10">
+        
+        {/* Top section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 border-b pb-8">
-
+          
           {/* Branding */}
           <div>
             <div className="flex items-center space-x-3">
@@ -20,50 +22,51 @@ function Footer() {
             </p>
           </div>
 
-          {/* Rentals */}
+          {/* Rentals Links */}
           <div>
             <h3 className="text-lg font-semibold mb-3 text-gray-800">Rentals</h3>
             <ul className="space-y-2 text-sm font-semibold text-gray-600">
-              <li><NavLink to="/" className="hover:underline">Home</NavLink></li>
-              <li><NavLink to="/available" className="hover:underline">Available Cars</NavLink></li>
-              <li><NavLink to="/bookings" className="hover:underline">My Bookings</NavLink></li>
-              <li><NavLink to="/add-car" className="hover:underline">List Your Car</NavLink></li>
+              <li>
+                <NavLink to="/" className="hover:underline">Home</NavLink>
+              </li>
+              <li>
+                <NavLink to="/available" className="hover:underline">Available Cars</NavLink>
+              </li>
+              <li>
+                <NavLink to="/bookings" className="hover:underline">My Bookings</NavLink>
+              </li>
+              <li>
+                <NavLink to="/add-car" className="hover:underline">List Your Car</NavLink>
+              </li>
             </ul>
           </div>
 
-          {/* About */}
+          {/* Operating Hours */}
           <div>
-            <h3 className="text-lg font-semibold mb-3 text-gray-800">About</h3>
-            <ul className="space-y-2 text-sm font-semibold text-gray-600">
-              <li><a href="#" className="hover:underline">Company</a></li>
-              <li><a href="#" className="hover:underline">Our Team</a></li>
-              <li><a href="#" className="hover:underline">Blog</a></li>
-              <li><a href="#" className="hover:underline">Media</a></li>
+            <h3 className="text-lg font-semibold mb-3 text-gray-800">Operating Hours</h3>
+            <ul className="text-sm font-semibold text-gray-600 space-y-1">
+              <li>Mon - Fri: 8:00 AM - 8:00 PM</li>
+              <li>Sat: 9:00 AM - 6:00 PM</li>
+              <li>Sun: Closed</li>
+              <li>24/7 Online Booking</li>
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Popular Locations */}
           <div>
-            <h3 className="text-lg font-semibold mb-3 text-gray-800">Support</h3>
-            <ul className="space-y-2 text-sm font-semibold text-gray-600">
-              <li><a href="#" className="hover:underline">Help Center</a></li>
-              <li><a href="#" className="hover:underline">Contact Us</a></li>
-              <li><a href="#" className="hover:underline">Terms & Conditions</a></li>
-              <li><a href="#" className="hover:underline">Privacy Policy</a></li>
+            <h3 className="text-lg font-semibold mb-3 text-gray-800">Popular Locations</h3>
+            <ul className="text-sm font-semibold text-gray-600 space-y-1">
+              <li>Dhaka City Center</li>
+              <li>Hazrat Shahjalal Airport</li>
+              <li>Chittagong Downtown</li>
+              <li>Cox’s Bazar Beach Road</li>
             </ul>
-            <div className="mt-4">
-              <a
-                href="mailto:support@driveease.com"
-                className="text-sm text-indigo-600 font-semibold hover:underline break-all"
-              >
-                support@driveease.com
-              </a>
-            </div>
           </div>
+
         </div>
 
         {/* Bottom section */}
-        <div className="flex flex-col md:flex-row items-center justify-between mt-6 text-sm text-gray-600 dark:text-gray-400 font-semibold">
+        <div className="flex flex-col md:flex-row items-center justify-between mt-6 text-sm text-gray-600 font-semibold">
           <p className="text-center md:text-left mb-2 md:mb-0">
             © {new Date().getFullYear()} DriveEase. All rights reserved.
           </p>
@@ -90,6 +93,7 @@ function Footer() {
             </a>
           </div>
         </div>
+
       </footer>
     </div>
   );

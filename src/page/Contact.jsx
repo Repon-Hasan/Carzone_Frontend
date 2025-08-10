@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-toastify';
 
 const Contact = () => {
@@ -33,6 +34,10 @@ const Contact = () => {
 
   return (
     <section className="max-w-5xl mx-auto px-4 py-16">
+           <Helmet>
+                    <title>ContactUs | CarZone</title>
+                    <meta name="description" content="Welcome to the homepage of My App" />
+                  </Helmet>
       <h2 className="text-4xl font-bold text-center text-blue-600 mb-4">Contact Us</h2>
       <p className="text-center text-gray-600 mb-10">
         Have questions about renting a car or want to give us feedback? We’re happy to help!

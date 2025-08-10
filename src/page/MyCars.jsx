@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { vlalueContext } from '../Layout/Homelayout';
 import { Link } from 'react-router';
+import { Helmet } from 'react-helmet-async';
 
 function MyCars() {
   const { user, loading } = useContext(vlalueContext);
@@ -74,6 +75,10 @@ function MyCars() {
 
   return (
     <div className="overflow-x-auto p-4">
+           <Helmet>
+                    <title>MyCar | CarZone</title>
+                    <meta name="description" content="Welcome to the homepage of My App" />
+                  </Helmet>
       <div className="flex justify-between mb-4">
         <input
           type="text"

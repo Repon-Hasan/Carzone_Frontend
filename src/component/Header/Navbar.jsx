@@ -25,49 +25,51 @@ function Navbar() {
 
   const commonLinks = (
     <>
-      <NavLink className="font-semibold text-xl text-black" to="/">Home</NavLink>
-      <NavLink className="font-semibold text-xl text-black" to="/available">Available Cars</NavLink>
-      <NavLink className="font-semibold text-xl text-black" to="/contact">Contact</NavLink>
+      <NavLink className="nav-link" to="/">Home</NavLink>
+      <NavLink className="nav-link" to="/available">Available Cars</NavLink>
+      <NavLink className="nav-link" to="/contact">Contact</NavLink>
     </>
   );
 
   const guestLinks = (
     <>
-      <NavLink className="font-semibold text-xl text-black" to="/about">About</NavLink>
-      <NavLink className="font-semibold text-xl text-black" to="/faq">FAQ</NavLink>
+      <NavLink className="nav-link" to="/about">About</NavLink>
+      <NavLink className="nav-link" to="/faq">FAQ</NavLink>
     </>
   );
 
   const userLinks = (
     <>
-      <NavLink className="font-semibold text-xl text-black" to="/addCars">Add Car</NavLink>
-      <NavLink className="font-semibold text-xl text-black" to={`/cars/${user?.email}`}>My Cars</NavLink>
-      <NavLink className="font-semibold text-xl text-black" to="/bookings">My Bookings</NavLink>
+      <NavLink className="nav-link" to="/addCars">Add Car</NavLink>
+      <NavLink className="nav-link" to={`/cars/${user?.email}`}>My Cars</NavLink>
+      <NavLink className="nav-link" to="/bookings">My Bookings</NavLink>
     </>
   );
 
   return (
-    <div className="sticky top-0 z-50 bg-blue-300 text-white shadow-md w-full">
+    <div className="sticky top-0 z-50 bg-primary shadow-md w-full">
       <div className="navbar w-full px-0">
         {/* Navbar Start */}
         <div className="navbar-start">
           <div className="dropdown lg:hidden">
-            <label tabIndex={0} className="p-2 cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
+            <label tabIndex={0} className="p-2 cursor-pointer text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round"
                   strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
               </svg>
             </label>
-            <ul tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-blue-300 rounded-box w-52">
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-primary rounded-box w-52"
+            >
               {commonLinks}
               {user ? userLinks : guestLinks}
             </ul>
           </div>
-          <Link to="/" className="flex items-center pl-2 text-black">
+          <Link to="/" className="flex items-center pl-2">
             <img src={logo} alt="Logo" className="w-10 h-10 rounded-full mr-1" />
-            <span className='font-semibold text-2xl'>CarZone</span>
+            <span className="font-semibold text-2xl text-white">CarZone</span>
           </Link>
         </div>
 

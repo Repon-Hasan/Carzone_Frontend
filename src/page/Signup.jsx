@@ -60,6 +60,10 @@ if (!/[A-Z]/.test(password)) {
    
   return (
 <div className="w-full md:mt-16 mt-4 mx-auto max-w-md p-4 rounded-md shadow sm:p-8 dark:bg-gray-50 dark:text-gray-800">
+		 <Helmet>
+				  <title>SignUp | CarZone</title>
+				  <meta name="description" content="Welcome to the homepage of My App" />
+				</Helmet>
 	<h2 className="mb-3 text-3xl font-semibold text-center">Signup to your account</h2>
 	<p className="text-sm text-center dark:text-gray-600">Have a have account?
 		 <Link to="/signin" className="focus:underline hover:underline text-blue-600">Sign in here</Link> 

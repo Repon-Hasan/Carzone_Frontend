@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { useLoaderData, useNavigate } from 'react-router'
 import { vlalueContext } from '../Layout/Homelayout';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet-async';
 
 function UpdateCar() {
     const data = useLoaderData();
@@ -52,6 +53,10 @@ console.log("car model:",carModel);
     }
   return (
   <div className="max-w-xl mx-auto mt-8 p-4 bg-white rounded-xl shadow">
+         <Helmet>
+                  <title>UpdatePage | CarZone</title>
+                  <meta name="description" content="Welcome to the homepage of My App" />
+                </Helmet>
       <h2 className="text-2xl font-bold mb-4">Update Car Details</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
 

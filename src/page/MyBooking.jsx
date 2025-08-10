@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { FaTrash, FaCalendarAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { vlalueContext } from '../Layout/Homelayout';
+import { Helmet } from 'react-helmet-async';
 
 function MyBooking() {
   const [bookings, setBookings] = useState([]);
@@ -104,6 +105,10 @@ function MyBooking() {
 
   return (
     <div className="p-4 overflow-x-auto">
+           <Helmet>
+                    <title>MyBookingCar| CarZone</title>
+                    <meta name="description" content="Welcome to the homepage of My App" />
+                  </Helmet>
       <h2 className="text-2xl font-semibold mb-4">My Bookings</h2>
       {!Array.isArray(bookings) ? (
         <p className="text-red-500">Error: Invalid booking data received.</p>

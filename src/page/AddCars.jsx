@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
 import { vlalueContext } from '../Layout/Homelayout';
+import { Helmet } from 'react-helmet-async';
 
 function AddCars() {
   const { user } = useContext(vlalueContext);
@@ -39,7 +40,12 @@ function AddCars() {
   };
 
   return (
+    
     <div className="max-w-xl mx-auto mt-8 p-4 bg-white rounded-xl shadow">
+      <Helmet>
+              <title>AddCar | CarZone</title>
+              <meta name="description" content="Welcome to the homepage of My App" />
+            </Helmet>
       <h2 className="text-2xl font-bold mb-4">Add a New Car</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input type="text" name="carModel" placeholder="Car Model" required className="w-full border p-2 rounded" />

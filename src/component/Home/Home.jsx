@@ -79,52 +79,70 @@ function Home() {
 
 <section className="py-16 px-4 max-w-7xl mx-auto">
   <h2 className="text-4xl font-bold text-center mb-10">Recent Listings</h2>
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+  
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
     {cars
       .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-      .slice(0, 6) 
+      .slice(0, 6)
       .map((car) => {
-        const daysAgo = Math.floor((new Date() - new Date(car.createdAt)) / (1000 * 60 * 60 * 24));
-        const postedDate = daysAgo === 0 ? "Today" : `Added ${daysAgo} day${daysAgo > 1 ? "s" : ""} ago`;
+        const daysAgo = Math.floor(
+          (new Date() - new Date(car.createdAt)) / (1000 * 60 * 60 * 24)
+        );
+        const postedDate =
+          daysAgo === 0
+            ? "Today"
+            : `Added ${daysAgo} day${daysAgo > 1 ? "s" : ""} ago`;
 
         return (
           <div
             key={car._id}
-            className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition transform hover:scale-[1.02] duration-300"
+            className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition transform hover:scale-[1.02] duration-300 flex flex-col"
           >
-            <div className="overflow-hidden h-40">
+            {/* Image */}
+            <div className="h-48 w-full overflow-hidden flex-shrink-0">
               <img
                 src={car.imageUrl}
                 alt={car.carModel}
                 className="w-full h-full object-cover transform hover:scale-105 transition duration-300"
               />
             </div>
-            <div className="p-4">
+
+            {/* Content */}
+            <div className="p-4 flex flex-col flex-grow">
               <h3 className="text-xl font-semibold mb-1">{car.carModel}</h3>
-              <p className="text-gray-700 mb-1">${car.dailyRentalPrice} / day</p>
-              <p className="text-sm text-gray-600 mb-1">Bookings: {car.bookingCount || 0}</p>
-              <p className="text-sm text-gray-500 mb-2">{postedDate}</p>
+              <p className="text-gray-700 font-medium mb-2">
+                ${car.dailyRentalPrice} / day
+              </p>
+              <p className="text-sm text-gray-600 mb-2">
+                {car.description || "No description available."}
+              </p>
+              <p className="text-xs text-gray-500 mb-2">{postedDate}</p>
               <span
-                className={`inline-block px-3 py-1 text-sm font-medium rounded-full ${
-                  car.bookingStatus
-=== 'Available' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                className={`inline-block px-3 py-1 text-sm text-center font-medium rounded-full mb-4 ${
+                  car.bookingStatus === "Available"
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
                 }`}
               >
-                {car.bookingStatus
- || 'Unavailable'}
+                {car.bookingStatus || "Unavailable"}
               </span>
-              {/* Uncomment if you want booking button */}
-              {/* <Link to={`/car/${car._id}`}>
-                <button className="mt-4 w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                  Book Now
-                </button>
-              </Link> */}
+
+              {/* Push button to bottom */}
+              <div className="mt-auto">
+                <Link to={`/car/${car._id}`}>
+                  <button className="w-full bg-primary text-white px-4 py-2 rounded hover:bg-gray-800 transition-colors duration-200">
+                    See More
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         );
       })}
   </div>
 </section>
+
+
 
    <section className="py-16 px-4 bg-gray-50">
       <div className="max-w-6xl mx-auto text-center">
@@ -183,22 +201,43 @@ function Home() {
 </section>
 
 
-      <section className="py-16 bg-gradient-to-r from-yellow-100 via-white to-yellow-100">
-        <h2 className="text-4xl font-bold text-center mb-12">Special Offers</h2>
-        <div className="flex flex-wrap justify-center gap-8">
-          {[
-            { text: 'Get 15% off for weekend rentals!', btn: 'Book Now' },
-            { text: 'Luxury cars at $99/day this holiday season!', btn: 'Learn More' },
-          ].map((offer, idx) => (
-            <div key={idx} className="w-[300px] bg-white p-6 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl animate-fade-in">
-              <p className="text-lg font-semibold text-center mb-4">{offer.text}</p>
-              <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded">
-                {offer.btn}
-              </button>
-            </div>
-          ))}
+    <section className="py-16 bg-gradient-to-r from-yellow-50 via-white to-yellow-50">
+  <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
+    Special Offers
+  </h2>
+
+  <div className="flex flex-wrap justify-center gap-8">
+    {[
+      {
+        title: "Weekend Saver",
+        text: "Enjoy 15% off all rentals from Friday to Sunday.",
+        highlight: "Limited Time",
+        icon: "🚗",
+      },
+      {
+        title: "Luxury Holiday Deal",
+        text: "Drive luxury cars at just $99/day this holiday season.",
+        highlight: "Holiday Exclusive",
+        icon: "✨",
+      },
+    ].map((offer, idx) => (
+      <div
+        key={idx}
+        className="w-[320px] bg-white p-6 rounded-xl shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl"
+      >
+        <div className="flex items-center gap-3 mb-4">
+          <span className="text-3xl">{offer.icon}</span>
+          <h3 className="text-xl font-bold text-gray-800">{offer.title}</h3>
         </div>
-      </section>
+        <p className="text-gray-600 mb-3">{offer.text}</p>
+        <span className="inline-block text-sm font-medium text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full">
+          {offer.highlight}
+        </span>
+      </div>
+    ))}
+  </div>
+</section>
+
     </>
   );
 }
